@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="{{url_for('categories.static', filename='categories.css')}}">
+{% endblock %}
+
+{% block main %}
+
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-lightblue rounded box-shadow">
+    <img class="mr-3" src="{{ url_for('static', filename='budget-v2.svg') }}" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">Categories</h6>
+      <small>Since 2021</small>
+    </div>
+</div>
+
+<div class="my-3 p-3 bg-white rounded box-shadow">
+
+    <h6 class="border-bottom border-gray pb-2 mb-0">Categories</h6>
+
+    {% for category in categories %}
+    <div class="media text-muted pt-3 border-bottom border-gray">
+        <p class="media-body pb-3 mb-0 small lh-125">
+            <strong class="d-block text-gray-dark center">{{category.name}}</strong>
+        </p>
+        <a data-toggle="modal" class="update-modal-opener" data-id="{{category.id}}"><span class="material-icons button">edit</span></a>
+        <p class="mr-4"></p>
+        <a data-toggle="modal" class="delete-modal-opener" data-id="{{category.id}}"><span class="material-icons button">delete</span></a>
+    </div>
+    {% endfor %}
+
+    <small class="d-block mt-3">
+      <button data-toggle="modal" class="text-right new-modal-opener btn btn-outline-info">Add</button>
+    </small>
+</div>
+
+<!--            -->
+<!-- MODAL      -->
+<!-- for delete -->
+<!--            -->
+
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!--        -->
+            <!-- Body  -->
+            <!--        -->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <form action="{{ url_for('categories.categories') }}" method="get">
+                        <button type="submit" class="btn btn-danger" onclick="DeleteCategory()">DELETE</button>
+                        <button type="submit" class="btn btn-secondary">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--            -->
+<!-- MODAL      -->
+<!-- for update -->
+<!--            -->
+
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!--        -->
+            <!-- Header  -->
+            <!--        -->
+            <div class="modal-header">
+                <h5 class="modal-title">Update Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"> &times;</span>
+                </button>
+            </div>
+            <!--        -->
+            <!-- Body  -->
+            <!--        -->
+            <div class="modal-body">
+                <form action="{{ url_for('categories.categories') }}" method="get">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input id="updatedCategoryName" type="text" class="form-control" aria-label="Category Name" required="1">
+                        <div class="input-group-append"></div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary" onclick="UpdateCategory()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--            -->
+<!-- MODAL      -->
+<!-- for new    -->
+<!--            -->
+
+<div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!--        -->
+            <!-- Header  -->
+            <!--        -->
+            <div class="modal-header">
+                <h5 class="modal-title">Add Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"> &times;</span>
+                </button>
+            </div>
+            <!--        -->
+            <!-- Body  -->
+            <!--        -->
+            <div class="modal-body">
+                <form action="{{ url_for('categories.categories') }}" method="get">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input id="newCategoryName" class="form-control" aria-label="Category Name">
+                        <div class="input-group-append"></div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary" onclick="NewCategory()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{url_for('categories.static', filename='categories.js')}}"></script>
+{% endblock %}
