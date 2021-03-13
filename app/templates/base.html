@@ -11,7 +11,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{{url_for('static', filename='base.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css')|autoversion }}">
     {% block styles %}  {% endblock %}
   </head>
 
@@ -78,7 +78,7 @@
             crossorigin="anonymous"></script>
 
     <!--  Custom JS  -->
-    <script src="{{url_for('static', filename='base.js')}}"></script>
+    <script src="{{ url_for('static', filename='base.js')|autoversion }}"></script>
 
     <!--  Jinja2 Template allowing additional imports of JS  -->
     {% block scripts %} {% endblock %}

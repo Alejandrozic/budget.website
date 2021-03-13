@@ -3,12 +3,12 @@
 {% block styles %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="{{url_for('dashboard.static', filename='dashboard.css')}}">
+<link rel="stylesheet" href="{{ url_for('dashboard.static', filename='dashboard.css')|autoversion }}">
 {% endblock %}
 
 {% block main %}
 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-lightblue rounded box-shadow">
-    <img class="mr-3" src="{{ url_for('static', filename='budget-v2.svg') }}" alt="" width="48" height="48">
+    <img class="mr-3" src="{{ url_for('static', filename='budget-v2.svg')|autoversion }}" alt="" width="48" height="48">
     <div class="lh-100">
       <h6 class="mb-0 text-white lh-100">Dashboard</h6>
       <small>Since 2021</small>
@@ -125,5 +125,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
         integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
         crossorigin="anonymous"></script>
-<script src="{{url_for('dashboard.static', filename='dashboard.js')}}"></script>
+<script src="{{ url_for('dashboard.static', filename='dashboard.js')|autoversion }}"></script>
 {% endblock %}
