@@ -1,3 +1,4 @@
+import os
 from flask import Flask, url_for
 # from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -23,6 +24,15 @@ def create_app():
     db.init_app(app)
     with app.app_context():
         db.create_all()
+
+    @app.template_filter('autoversion')
+    def autoversion_filter(filename):
+        full_path = os.path.join('app/', filename[1:])
+        try:
+            timestamp = str(int(os.path.getmtime(full_path)))
+            return f"{filename}?v={timestamp}"
+        except OSError:
+            return filename
 
     # login.init_app(app)
 
