@@ -1,21 +1,41 @@
 {% extends "base.html" %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{url_for('analysis.static', filename='analysis.css')}}">
+<link rel="stylesheet" href="{{ url_for('analysis.static', filename='analysis.css')|autoversion }}">
 {% endblock %}
 
 {% block main %}
 
 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-lightblue rounded box-shadow">
-    <img class="mr-3" src="{{ url_for('static', filename='budget-v2.svg') }}" alt="" width="48" height="48">
+    <img class="mr-3" src="{{ url_for('static', filename='budget-v2.svg')|autoversion }}" alt="" width="48" height="48">
     <div class="lh-100">
       <h6 class="mb-0 text-white lh-100">Analysis</h6>
       <small>Since 2021</small>
     </div>
 </div>
 
+<div id="piechart" ></div>
+
 {% endblock %}
 
 {% block scripts %}
-<script src="{{url_for('analysis.static', filename='analysis.js')}}"></script>
+<script src="{{url_for('analysis.static', filename='analysis.js')|autoversion }}"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Category', 'Total'],
+          {% for row in expenses_by_category %}
+          ['{{row.category}}', {{ row.total|int }}],
+          {% endfor %}
+        ]);
+        var options = {
+          title: 'Expense by Category'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
 {% endblock %}
