@@ -41,6 +41,7 @@ function UpdateCategory(){
 	$.ajax({
 		url : '/categories/' + localStorage.getItem('categoryUpdateId') + '/update',
 		type : 'POST',
+		async: false,
 		data: {
 		    updatedCategoryName: $('#updatedCategoryName').val()
 		}
@@ -61,6 +62,7 @@ function NewCategory(){
 	$.ajax({
 		url : '/categories/new',
 		type : 'POST',
+		async: false,
 		data: {
 		    newCategoryName: $('#newCategoryName').val()
 		}

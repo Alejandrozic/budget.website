@@ -40,6 +40,7 @@ function UpdateTransaction(){
 	$.ajax({
 		url : '/transactions/' + localStorage.getItem('transactionsUpdateId') + '/update',
 		type : 'POST',
+		async: false,
 		data: {
 		    date: $('#date').val(),
 		    transactionTypeName: $('#transactionTypeName').val(),
